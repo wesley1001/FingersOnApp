@@ -998,7 +998,7 @@ onPress:function(){route.navItems.rightItem.event();}});}}},
 
 Title:function(route,navigator,index,navState){
 return (
-_reactNative2.default.createElement(Text,{style:{flex:1,justifyContent:'center',color:self.props.navTintColor?self.props.navTintColor:'ffffff',margin:10,fontSize:17}},
+_reactNative2.default.createElement(Text,{style:{flex:1,justifyContent:'center',color:self.props.navTintColor?self.props.navTintColor:'ffffff',marginTop:12,fontSize:18}},
 route.isRoot?self.state.rootNavigatorTitle:route.title));}};}},{key:'setNavItems',value:
 
 
@@ -1011,7 +1011,6 @@ this.currentRoute.navItems = config;}},{key:'popThisNavigator',value:
 function popThisNavigator(navigator){
 this.resetNavItems();
 this.forceReRender();
-console.log('hi');
 navigator.pop();}},{key:'resetNavItems',value:
 
 function resetNavItems(){
@@ -54083,7 +54082,8 @@ _get(Object.getPrototypeOf(FingerSpeed.prototype),'constructor',this).call(this)
 this.state = {
 lastTouch:false,
 bestRecord:false,
-recordBreak:false};}_createClass(FingerSpeed,[{key:'touchStart',value:
+recordBreak:false,
+lastRecord:false};}_createClass(FingerSpeed,[{key:'touchStart',value:
 
 
 function touchStart(){
@@ -54099,14 +54099,16 @@ var currentRecord=nowTime - this.state.lastTouch;
 if(this.state.bestRecord < currentRecord && this.state.bestRecord){
 
 this.setState({
-lastTouch:false});}else 
+lastTouch:false,
+lastRecord:currentRecord});}else 
 
 
 {
 this.setState({
 lastTouch:false,
 bestRecord:currentRecord,
-recordBreak:true});}}}},{key:'render',value:
+recordBreak:true,
+lastRecord:currentRecord});}}}},{key:'render',value:
 
 
 
@@ -54116,11 +54118,14 @@ return (
 _reactNative2.default.createElement(View,{style:style.rootView},
 _reactNative2.default.createElement(View,{style:{marginLeft:15,marginRight:15,alignItems:'center',marginTop:50}},
 _reactNative2.default.createElement(Text,{style:{fontSize:20}},'用最快的速度左右手敲击屏幕'),
-_reactNative2.default.createElement(Text,{style:{fontSize:20}},'你能有多快?')),
+_reactNative2.default.createElement(Text,{style:{fontSize:20}},'你能有多快?'),
+_reactNative2.default.createElement(Text,{style:{marginLeft:20,marginRight:20,textAlign:'center',fontSize:17,marginTop:30,height:20}},
+!this.state.bestRecord?'':'这次按了' + this.state.lastRecord + '毫秒 ' + (0,_emojiJs2.default)())),
+
 
 _reactNative2.default.createElement(View,{
 onTouchStart:function(){return _this.touchStart();},
-style:{marginLeft:30,marginRight:30,alignItems:'center',marginTop:50,backgroundColor:'#F06292',height:200,borderRadius:5,justifyContent:'center'}},
+style:{marginLeft:30,marginRight:30,alignItems:'center',marginTop:20,backgroundColor:'#EC407A',height:200,borderRadius:5,justifyContent:'center'}},
 _reactNative2.default.createElement(Text,{style:{color:'#FFFFFF',fontSize:20,marginBottom:20}},'来戳我吧 ',(0,_emojiJs2.default)()),
 _reactNative2.default.createElement(Text,{style:{color:'#FFFFFF',fontSize:20,height:40}},this.state.recordBreak?'骚年好♂快':'')),
 
@@ -54273,8 +54278,11 @@ isTouching:false});
 
 var nowTime=new Date().getTime();
 var rawRecord=nowTime - this.state.lastTouch;
-var currentRecord=1000 - rawRecord;
-if(this.state.bestRecord < currentRecord && this.state.bestRecord){
+var tmp=1000 - rawRecord;
+var tmpPrefix=tmp < 0?-1:1;
+var currentRecord=Math.abs(tmp) * tmpPrefix;
+console.log('current record is ' + currentRecord);
+if(this.state.bestRecord < Math.abs(currentRecord) && this.state.bestRecord){
 
 this.setState({
 lastRecord:rawRecord});}else 
@@ -54282,7 +54290,7 @@ lastRecord:rawRecord});}else
 
 {
 this.setState({
-bestRecord:currentRecord,
+bestRecord:Math.abs(currentRecord),
 lastRecord:rawRecord,
 recordBreak:true});}}},{key:'getStat',value:
 
@@ -54292,10 +54300,10 @@ function getStat(){
 if(this.state.lastRecord){
 var record=1000 - this.state.lastRecord;
 if(record > 0){
-return '这次续了' + this.state.lastRecord / 1000 + '毫秒, 你太早松手啦';}else 
+return '这次续了' + this.state.lastRecord / 1000 + '秒, 你太早松手啦';}else 
 
 if(record < 0){
-return '这次续了' + this.state.lastRecord / 1000 + '毫秒, 你太迟松手啦';}else 
+return '这次续了' + this.state.lastRecord / 1000 + '秒, 你太迟松手啦';}else 
 
 {
 return '卧槽刚好1秒!!!';}}}},{key:'getBest',value:
@@ -54327,7 +54335,7 @@ _reactNative2.default.createElement(View,{
 onTouchStart:function(){return _this.touchStart();},
 onTouchEnd:function(){return _this.touchEnd();},
 onTouchCancel:function(){return _this.touchEnd();},
-style:{marginLeft:30,marginRight:30,alignItems:'center',marginTop:30,backgroundColor:this.state.isTouching?'#F06292':'#EC407A',height:200,borderRadius:5,justifyContent:'center'}},
+style:{marginLeft:30,marginRight:30,alignItems:'center',marginTop:20,backgroundColor:this.state.isTouching?'#F06292':'#EC407A',height:200,borderRadius:5,justifyContent:'center'}},
 _reactNative2.default.createElement(Text,{style:{color:'#FFFFFF',fontSize:20,marginBottom:20}},!this.state.isTouching?'来续1秒 ' + (0,_emojiJs2.default)():'长者续命中 ' + (0,_emojiJs2.default)())),
 
 _reactNative2.default.createElement(Text,{style:{marginLeft:20,marginRight:20,textAlign:'center',fontSize:17,marginTop:30}},
@@ -54387,4 +54395,4 @@ _reactNative2.default.createElement(Text,{style:{fontSize:17,color:'#007AFF'}},'
 module.exports = FingerSpeed;
 });
 ;require("FingersOn/index.ios.js");
-__SSTOKENSTRING = "@generated SignedSource<<374ca8eb3a522530247342c57d92d2b1>>";
+__SSTOKENSTRING = "@generated SignedSource<<e077f7e037c2ad8c068646e6b01c5108>>";

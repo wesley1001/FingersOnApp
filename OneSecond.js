@@ -40,8 +40,11 @@ class FingerSpeed extends Component {
     });
     let nowTime = new Date().getTime();
     let rawRecord = nowTime - this.state.lastTouch;
-    let currentRecord = 1000 - rawRecord;
-    if (this.state.bestRecord < currentRecord && this.state.bestRecord) {
+    let tmp = 1000 - rawRecord;
+    let tmpPrefix = tmp < 0 ? -1 : 1;
+    let currentRecord = Math.abs(tmp)*tmpPrefix;
+    console.log(`current record is ${currentRecord}`);
+    if (this.state.bestRecord < Math.abs(currentRecord) && this.state.bestRecord) {
       // 继续努力
       this.setState({
         lastRecord: rawRecord
@@ -49,7 +52,7 @@ class FingerSpeed extends Component {
     }
     else {
       this.setState({
-        bestRecord: currentRecord,
+        bestRecord: Math.abs(currentRecord),
         lastRecord: rawRecord,
         recordBreak: true
       });
@@ -59,10 +62,10 @@ class FingerSpeed extends Component {
     if (this.state.lastRecord) {
       let record = 1000 - this.state.lastRecord;
       if (record > 0) {
-        return `这次续了${this.state.lastRecord/1000}毫秒, 你太早松手啦`;
+        return `这次续了${this.state.lastRecord/1000}秒, 你太早松手啦`;
       }
       else if (record < 0) {
-        return `这次续了${this.state.lastRecord/1000}毫秒, 你太迟松手啦`;
+        return `这次续了${this.state.lastRecord/1000}秒, 你太迟松手啦`;
       }
       else {
         return `卧槽刚好1秒!!!`;
@@ -94,7 +97,7 @@ class FingerSpeed extends Component {
           onTouchStart={()=>this.touchStart()}
           onTouchEnd={()=>this.touchEnd()}
           onTouchCancel={()=>this.touchEnd()}
-          style={{marginLeft: 30, marginRight: 30, alignItems: 'center', marginTop: 30, backgroundColor: this.state.isTouching ? '#F06292' : '#EC407A', height: 200, borderRadius: 5, justifyContent: 'center'}}>
+          style={{marginLeft: 30, marginRight: 30, alignItems: 'center', marginTop: 20, backgroundColor: this.state.isTouching ? '#F06292' : '#EC407A', height: 200, borderRadius: 5, justifyContent: 'center'}}>
           <Text style={{color: '#FFFFFF', fontSize: 20, marginBottom: 20}}>{!this.state.isTouching ? `来续1秒 ${RandomEmoji()}` : `长者续命中 ${RandomEmoji()}`}</Text>
         </View>
         <Text style={{marginLeft: 20, marginRight: 20, textAlign: 'center', fontSize: 17, marginTop: 30}}>
