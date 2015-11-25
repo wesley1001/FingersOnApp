@@ -68,10 +68,10 @@ class FingerSpeed extends Component {
           onTouchStart={()=>this.touchStart()}
           style={{marginLeft: 30, marginRight: 30, alignItems: 'center', marginTop: 20, backgroundColor: '#EC407A', height: 200, borderRadius: 5, justifyContent: 'center'}}>
           <Text style={{color: '#FFFFFF', fontSize: 20, marginBottom: 20}}>来戳我吧 {RandomEmoji()}</Text>
-          <Text style={{color: '#FFFFFF', fontSize: 20, height: 40}}>{this.state.recordBreak ? `骚年好♂快`: ''}</Text>
+          <Text style={{color: '#FFFFFF', fontSize: 20, height: 40}}>{this.state.recordBreak ? `打得不♂错`: ''}</Text>
         </View>
         <Text style={{marginLeft: 20, marginRight: 20, textAlign: 'center', fontSize: 17, marginTop: 30}}>
-          {!this.state.bestRecord ? `骚年, 来开始你的第一次吧 ${RandomEmoji()}` : `最高成绩是${this.state.bestRecord}毫秒 ${RandomEmoji()}`}
+          {!this.state.bestRecord ? `来开始你的第一次吧 ${RandomEmoji()}` : `最高成绩是${this.state.bestRecord}毫秒 ${RandomEmoji()}`}
         </Text>
       </View>
     );

@@ -62,10 +62,10 @@ class FingerSpeed extends Component {
     if (this.state.lastRecord) {
       let record = 1000 - this.state.lastRecord;
       if (record > 0) {
-        return `这次续了${this.state.lastRecord/1000}秒, 你太早松手啦`;
+        return `这次成绩是${this.state.lastRecord/1000}秒, 你太早松手啦`;
       }
       else if (record < 0) {
-        return `这次续了${this.state.lastRecord/1000}秒, 你太迟松手啦`;
+        return `这次成绩是${this.state.lastRecord/1000}秒, 你太迟松手啦`;
       }
       else {
         return `卧槽刚好1秒!!!`;
@@ -87,10 +87,10 @@ class FingerSpeed extends Component {
     return (
       <View style={style.rootView}>
         <View style={{marginLeft: 15, marginRight: 15, alignItems: 'center', marginTop: 50}}>
-          <Text style={{fontSize: 20}}>按住下面的方块给我蛤续一秒</Text>
-          <Text style={{fontSize: 20}}>看看你的续的一秒准不准?</Text>
+          <Text style={{fontSize: 20}}>按住下面的方块开始游戏</Text>
+          <Text style={{fontSize: 20}}>看看你按的一秒准不准?</Text>
           <Text style={{marginLeft: 20, marginRight: 20, textAlign: 'center', fontSize: 17, marginTop: 30, height: 20}}>
-            {!this.state.bestRecord ? `骚年, 来开始你的第一次吧 ${RandomEmoji()}` : `最高成绩是${this.getBest()}秒 ${RandomEmoji()}`}
+            {!this.state.bestRecord ? `来开始你的第一次吧 ${RandomEmoji()}` : `最高成绩是${this.getBest()}秒 ${RandomEmoji()}`}
           </Text>
         </View>
         <View
@@ -98,7 +98,7 @@ class FingerSpeed extends Component {
           onTouchEnd={()=>this.touchEnd()}
           onTouchCancel={()=>this.touchEnd()}
           style={{marginLeft: 30, marginRight: 30, alignItems: 'center', marginTop: 20, backgroundColor: this.state.isTouching ? '#F06292' : '#EC407A', height: 200, borderRadius: 5, justifyContent: 'center'}}>
-          <Text style={{color: '#FFFFFF', fontSize: 20, marginBottom: 20}}>{!this.state.isTouching ? `来续1秒 ${RandomEmoji()}` : `长者续命中 ${RandomEmoji()}`}</Text>
+          <Text style={{color: '#FFFFFF', fontSize: 20, marginBottom: 20}}>{!this.state.isTouching ? `来开始游戏吧 ${RandomEmoji()}` : `少女祈祷中 ${RandomEmoji()}`}</Text>
         </View>
         <Text style={{marginLeft: 20, marginRight: 20, textAlign: 'center', fontSize: 17, marginTop: 30}}>
           {this.state.lastRecord ? `${this.getStat()} ${RandomEmoji()}` : ``}

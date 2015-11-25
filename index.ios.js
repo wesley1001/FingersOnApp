@@ -48,7 +48,7 @@ class FingersOn extends Component {
         <TabBarNavigator.Item title='手速' icon={{uri: iconData.speedGameLogo, scale: 3}} defaultTab>
           <FingerSpeed/>
         </TabBarNavigator.Item>
-        <TabBarNavigator.Item title='续命游戏' icon={{uri: iconData.oneSecondGameLogo, scale: 3}} >
+        <TabBarNavigator.Item title='1秒游戏' icon={{uri: iconData.oneSecondGameLogo, scale: 3}} >
           <OneSecond/>
         </TabBarNavigator.Item>
         <TabBarNavigator.Item title='设置' icon={{uri: iconData.settingsLogo, scale: 3}}>
